@@ -1,0 +1,67 @@
+.resposta{
+    display: flex;
+    width: 80%;
+    min-width: 500px;
+    height: 64px;
+    margin: 8px;
+}
+
+.conteudoResposta{
+    position: relative;
+    display: flex;
+    flex: 1;
+}
+
+.frente, .verso{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    border-radius: 8px;
+}
+
+.frente{
+    align-items: center;
+    padding: 0 18px;
+    color: #222;
+    background-color: #FEFEFE;
+}
+
+.verso > :is(.certa, .errada){
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    border-radius: inherit;
+}
+
+.certa{
+    background-color: #2baa6d;
+}
+
+.errada{
+    background-color: #e44a4c;
+}
+
+:is(.carta, .errada) > .valor {
+    font-size: 1.4rem;
+} 
+
+.letra{
+    color: #FEFEFE;
+    margin-right: 18px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.valor{
+    font-size: 1.2rem;
+    font-weight: 500;
+}

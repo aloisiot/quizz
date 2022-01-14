@@ -9,14 +9,6 @@ export default class RespostaModel{
         this.#revelada = revelada
     }
 
-    static certa(valor: string){
-        return new RespostaModel(valor, true)
-    }
-
-    static errada(valor: string){
-        return new RespostaModel(valor, false)
-    }
-
     get valor(){
         return this.#valor
     }
@@ -29,6 +21,22 @@ export default class RespostaModel{
         return this.#revelada
     }
 
+    static certa(valor: string){
+        return new RespostaModel(valor, true)
+    }
+
+    static errada(valor: string){
+        return new RespostaModel(valor, false)
+    }
+
+    revelar(): RespostaModel{
+        return new RespostaModel(this.#valor, this.#certa, true)
+    }
+
+    /**
+     * Transforma o objeto RespostaModel em um objeto literal. 
+     * @returns Objeto literal.
+     */
     paraObjeto(){
         return {
             valor: this.#valor,

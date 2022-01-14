@@ -1,3 +1,4 @@
+import embaralhar from "../functions/embaralhar"
 import RespostaModel from "./resposta"
 
 export default class QuestaoModel{
@@ -29,7 +30,7 @@ export default class QuestaoModel{
         return this.#acertou
     }
 
-    get respondida(){
+    get respondida(): boolean{
         for (let resposta of this.#respostas) {
             if(resposta.revelada)
                 return true
@@ -37,6 +38,43 @@ export default class QuestaoModel{
         return false
     }
 
+    get naoRespondida(): boolean{
+        return !this.respondida
+    }
+
+    /**
+     * Altera a lista de respostas retornando uma nova lista contendo as respostas certa e selecionada reveladas de acorto com o indice da resposta selecionada passado como parâmetro 
+     * @param indice Indice da resposta selecionada
+     * @returns Uma nova instancia de QuestaoModel contendo a nova lista de respostas :RespostasModel modificada
+     */
+    responderCom(indice: number): QuestaoModel{
+        const acertou = this.#respostas[indice]?.certa
+        const respostas = this.#respostas.map((resp, i) => {
+            const respSelecionada =  indice === i
+            return respSelecionada || resp.certa ?  resp.revelar() : resp
+        })
+        return new QuestaoModel(this.#id, this.#enunciado, respostas, acertou)
+    }
+
+    /**
+     * Embaralha os valores contidos na lista de resposta do objeto QuestaoModel
+     * @returns Novo objeto do tipo QuestaoModel contendo os mesmos atributos,
+     * mas com a ordem da lista de respostas embaralhada.
+     */
+    embaralharRespostas(): QuestaoModel{
+        let respostasEmbaralhadas = embaralhar(this.#respostas)
+        return new QuestaoModel(
+            this.#id,
+            this.#enunciado,
+            respostasEmbaralhadas,
+            this.#acertou
+        )
+    }
+
+    /**
+     * Transforma o objeto QuestaoModel em um objeto literal. 
+     * @returns Objeto literal.
+     */
     paraObjeto(){
         return {
             id: this.#id,
