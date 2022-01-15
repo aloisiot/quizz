@@ -1,4 +1,4 @@
-import questoes from "../../../data/bancoDeQuestoes";
+import questoes from "../../../assets/data/bancoDeQuestoes";
 import embaralhar from "../../../functions/embaralhar";
 
 export default function questionario(req, resp) {

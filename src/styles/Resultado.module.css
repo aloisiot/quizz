@@ -1,0 +1,16 @@
+.resultado{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-size: 2rem;
+    background-image: url("../assets/img/bkg.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.title{
+    margin: 0;
+}

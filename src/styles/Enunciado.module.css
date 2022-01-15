@@ -1,5 +1,6 @@
 .enunciado{
     display: flex;
+    padding: 0 80px;
 }
 
 .texto{

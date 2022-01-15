@@ -1,42 +1,87 @@
-import { useState } from "react";
-import Botao from "../components/Botao";
-import Questao from "../components/Questao";
+import { useEffect, useState } from "react";
+import Questionario from "../components/Questionario";
 import QuestaoModel from "../model/questao";
-import RespostaModel from "../model/resposta";
-import styles from "../styles/Home.module.css"
+import { useRouter } from "next/router";
+import Wellcome from "../components/Wellcome";
 
-const questaoTest = new QuestaoModel(1, "enunciado ficticio", [
-  RespostaModel.errada("Azul"),
-  RespostaModel.errada("Verde"),
-  RespostaModel.errada("Amarelo"),
-  RespostaModel.certa("Branco"),
-])
+const BASE_URL = "http://localhost:3000/api"
 
 export default function Home() {
-  const [questao, setQuestao] = useState(questaoTest)
+  const [idsQuestoes, setIdsQuestoes] = useState<number[]>([])
+  const [questao, setQuestao] = useState<QuestaoModel>(null)
+  const [acertos, setAcertos] = useState<number>(0)
+  const [respondidas, setRespondidas] = useState<number>(0)
+  const [comecar, setComecar] = useState<boolean>(false)
+  const router = useRouter()
 
-  const tempoEsgotado = () => {
-    if(questao.naoRespondida){
-        setQuestao(questao.responderCom(-1))
-    }
-}
-
-  const respostaFornecida = (indice: number) => {
-    setQuestao(questao.responderCom(indice))
+  async function carregarIdQuestoes(){
+    const resp = await fetch(`${BASE_URL}/questionario`)
+    const ids = await resp.json()
+    setIdsQuestoes(ids)
   }
 
+  async function carregarQuestao(idQuestao: number){
+    const resp = await fetch(`${BASE_URL}/questoes/${idQuestao}`)
+    const json = await resp.json()
+    const novaQuestao = QuestaoModel.objetoParaQuestaoModel(json)
+    setQuestao(novaQuestao)
+  }
+
+  function questaoRespondida (questaoRespondida: QuestaoModel){
+    setQuestao(questaoRespondida)
+    setRespondidas(respondidas + 1)
+
+    if(questaoRespondida.acertou)
+      setAcertos(acertos + 1)
+  }
+
+  function idProximaQuestao() {
+    if(questao){
+      const proximoIndice = idsQuestoes.indexOf(questao.id) +1
+      return idsQuestoes[proximoIndice]
+    }
+  }
+
+  function irParaProximaQuestao(proximoId: number){
+    carregarQuestao(proximoId)
+  }
+
+  function finalizar(){
+    router.push({
+      pathname: "/resultado",
+      query: {
+        respondidas,
+        acertos,
+        total: idsQuestoes.length || 0
+      }
+    })
+  }
+
+  function irProximoPasso (){
+    const proximoId = idProximaQuestao()
+    proximoId ? irParaProximaQuestao(proximoId) : finalizar()
+  }
+
+  useEffect(() => {
+    carregarIdQuestoes()
+  },[])
+
+  useEffect(() => {
+    if(idsQuestoes.length > 0)
+      carregarQuestao(idsQuestoes[0])
+  },[idsQuestoes])
+
   return (
-    <div className={styles.home}>
-      <Questao 
-        valor={questao}
-        tempoParaResponder={8}
-        respostaFornecida={respostaFornecida}
-        tempoEsgotado={tempoEsgotado}
-      />
-      <Botao
-        texto="Proxima"
-        href="/resultado"
-      />
-    </div>
+    <>
+      {comecar ? (
+        questao &&
+          <Questionario
+            questao={questao}
+            ultima={idProximaQuestao() === undefined}
+            questaoRespondida={questaoRespondida}
+            irProximoPasso={irProximoPasso}
+          />
+      ) : <Wellcome comecar={() => setComecar(true)}/>}
+    </>
   )
 }

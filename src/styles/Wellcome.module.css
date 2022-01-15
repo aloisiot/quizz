@@ -1,0 +1,18 @@
+.start{
+    height: 100vh;
+    font-size: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../assets/img/bkg.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.start > h1{
+    background-image: linear-gradient(60deg, #ff525b, #ffd037);
+    background-clip: text;
+    color: transparent;
+    margin: 0 0 16px 0;
+}

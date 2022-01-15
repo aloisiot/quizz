@@ -1,4 +1,4 @@
-import questoes from '../../../data/bancoDeQuestoes'
+import questoes from '../../../assets/data/bancoDeQuestoes'
 
 export default function getQuestoes(req, resp){
     const idSelecionada = +req.query.id

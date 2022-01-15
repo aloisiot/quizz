@@ -7,10 +7,10 @@ export default class QuestaoModel{
     #respostas: RespostaModel[]
     #acertou: boolean
 
-    constructor(id: number, enunciado: string, resposta: any[], acertou = false){
+    constructor(id: number, enunciado: string, respostas: RespostaModel[], acertou = false){
         this.#id = id
         this.#enunciado = enunciado
-        this.#respostas = resposta
+        this.#respostas = respostas
         this.#acertou = acertou
     }
 
@@ -76,11 +76,30 @@ export default class QuestaoModel{
      * @returns Objeto literal.
      */
     paraObjeto(){
+        const respostas = this.#respostas.map(r => r.paraObjeto())
         return {
             id: this.#id,
             enunciado: this.#enunciado, 
-            respostas: this.#respostas.map(r => r.paraObjeto()),
+            respostas: embaralhar(respostas),
             acertou: this.#acertou,
         }
+    }
+
+    /**
+     * Converte um objeto literal para um objeto QuestaoModel
+     * @param questao Objeto literal a ser convertido para um objeto QuestaoModel
+     * @returns Objeto QuestaoModel resultado da conversão
+     */
+    static objetoParaQuestaoModel(questao: QuestaoModel): QuestaoModel{
+        const respostas = questao.respostas.map(resp => {
+            return RespostaModel.objetoParaRespostaModel(resp)
+        })
+
+        return new QuestaoModel(
+            questao.id,
+            questao.enunciado,
+            respostas,
+            questao.acertou
+        )
     }
 }

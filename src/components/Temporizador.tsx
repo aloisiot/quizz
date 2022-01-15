@@ -3,6 +3,7 @@ import styles from '../styles/Temporizador.module.css'
 import {CountdownCircleTimer} from 'react-countdown-circle-timer'
 
 interface TemporizadorProps{
+    chave: any
     duracao: number
     tempoEsgotado: () => void
 }
@@ -11,6 +12,7 @@ export default function Temporizador(props: TemporizadorProps){
     return (
         <div className={styles.temporizador}>
             <CountdownCircleTimer
+                key={props.chave}
                 duration={props.duracao}
                 size={80}
                 isPlaying

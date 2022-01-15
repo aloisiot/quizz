@@ -44,4 +44,13 @@ export default class RespostaModel{
             revelada: this.#revelada,
         }
     }
+
+    /**
+     * Converte um objeto literal para um objeto RespostaModel
+     * @param questao Objeto literal a ser convertido para um objeto RespostaModel
+     * @returns Objeto RespostaModel resultado da conversão
+     */
+    static objetoParaRespostaModel(obj: RespostaModel): RespostaModel{
+        return new RespostaModel(obj.valor, obj.certa, obj.revelada)
+    }
 }
