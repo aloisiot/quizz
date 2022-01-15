@@ -17,3 +17,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+:root{
+  --verde-claro: #30d2aa;
+  --amarelo: #fdd60f;
+  --rosa: #ce307e;
+}

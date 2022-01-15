@@ -16,7 +16,7 @@ export default function Resultado(){
             <div style={{display: "flex"}}>
                 <Estatistica
                     texto="perguntas"
-                    corFundo="#CE307E"
+                    corFundo="var(--rosa)"
                     valor={total}/>
                 
                 <Estatistica
@@ -26,7 +26,7 @@ export default function Resultado(){
                 <Estatistica
                     texto="acertos"
                     valor={acertos}
-                    corFundo="#30D2AA"/>
+                    corFundo="var(--verde-claro)"/>
             </div>
             <Botao
                 href="/" texto="Tente novamente"/>

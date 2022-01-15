@@ -3,6 +3,7 @@ import Questionario from "../components/Questionario";
 import QuestaoModel from "../model/questao";
 import { useRouter } from "next/router";
 import Wellcome from "../components/Wellcome";
+import Spinner from "../components/Spinner";
 
 export default function Home() {
   const [idsQuestoes, setIdsQuestoes] = useState<number[]>([])
@@ -10,6 +11,7 @@ export default function Home() {
   const [acertos, setAcertos] = useState<number>(0)
   const [respondidas, setRespondidas] = useState<number>(0)
   const [comecar, setComecar] = useState<boolean>(false)
+  const [exibirSpinner, setExibirSpinner] = useState<boolean>(false)
   const router = useRouter()
 
   async function carregarIdQuestoes(){
@@ -23,6 +25,7 @@ export default function Home() {
     const json = await resp.json()
     const novaQuestao = QuestaoModel.objetoParaQuestaoModel(json)
     setQuestao(novaQuestao)
+    setExibirSpinner(false)
   }
 
   function questaoRespondida (questaoRespondida: QuestaoModel){
@@ -56,6 +59,7 @@ export default function Home() {
   }
 
   function irProximoPasso (){
+    setExibirSpinner(true)
     const proximoId = idProximaQuestao()
     proximoId ? irParaProximaQuestao(proximoId) : finalizar()
   }
@@ -71,6 +75,7 @@ export default function Home() {
 
   return (
     <>
+      {exibirSpinner && <Spinner/>}
       {comecar ? (
         questao &&
           <Questionario

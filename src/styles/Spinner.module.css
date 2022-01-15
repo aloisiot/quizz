@@ -1,0 +1,27 @@
+.container{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    height: 100vh;
+    width: 100%;
+    background-color: #6C54D8CC;
+}
+
+.spinner{
+    border-radius: 50%;
+    background-image: conic-gradient(#ff525b, #ffd037);
+    height: 80px;
+    width: 80px;
+    animation: spinner 1s infinite;
+}
+
+@keyframes spinner {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
