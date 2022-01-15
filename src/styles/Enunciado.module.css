@@ -1,9 +1,15 @@
 .enunciado{
     display: flex;
-    padding: 0 80px;
+    padding: 0 10%;
 }
 
 .texto{
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+@media (max-width: 400px) {
+    .texto{
+        font-size: 1.8rem;
+    }
 }

@@ -9,6 +9,12 @@ body {
   font-family: 'Poppins', Ubuntu, Fira San, sans-serif;
 }
 
+html,
+body,
+#__next{
+  height: 100%;
+}
+
 a {
   color: inherit;
   text-decoration: none;

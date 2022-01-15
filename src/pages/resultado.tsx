@@ -13,7 +13,7 @@ export default function Resultado(){
     return (
         <div className={styles.resultado}>
             <h1 className={styles.title}>Resultado Final</h1>
-            <div style={{display: "flex"}}>
+            <div className={styles.containerEstatisticas}>
                 <Estatistica
                     texto="perguntas"
                     corFundo="var(--rosa)"

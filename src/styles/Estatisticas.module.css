@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 24px;
 }
 
 .valor{
@@ -11,12 +10,26 @@
     justify-content: center;
     font-weight: 500;
     font-size: 3rem;
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
+    margin-bottom: 8px;
 }
 
 .texto{
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 300;
+}
+
+@media (max-width: 400px) {
+    .valor{
+        font-size: 2rem;
+        height: 72px;
+        width: 72px;
+    }
+    
+    .texto{
+        font-size: 1.1rem;
+    }
+    
 }

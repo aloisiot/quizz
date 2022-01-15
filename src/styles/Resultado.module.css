@@ -4,13 +4,25 @@
     gap: 40px;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    font-size: 2rem;
+    height: 100%;
+    font-size: 1.4rem;
     background-image: url("../assets/img/bkg.png");
     background-size: cover;
     background-position: center;
 }
 
 .title{
-    margin: 0;
+    margin: 0 10%;
+}
+
+.containerEstatisticas{
+    display: flex;
+    gap: 30px
+}
+
+@media (max-width: 400px) {
+    .containerEstatisticas{
+        display: flex;
+        gap: 20px
+    }
 }
