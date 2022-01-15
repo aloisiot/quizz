@@ -4,8 +4,6 @@ import QuestaoModel from "../model/questao";
 import { useRouter } from "next/router";
 import Wellcome from "../components/Wellcome";
 
-const BASE_URL = "http://localhost:3000/api"
-
 export default function Home() {
   const [idsQuestoes, setIdsQuestoes] = useState<number[]>([])
   const [questao, setQuestao] = useState<QuestaoModel>(null)
@@ -15,13 +13,13 @@ export default function Home() {
   const router = useRouter()
 
   async function carregarIdQuestoes(){
-    const resp = await fetch(`${BASE_URL}/questionario`)
+    const resp = await fetch(`${window.location.origin}/api/questionario`)
     const ids = await resp.json()
     setIdsQuestoes(ids)
   }
 
   async function carregarQuestao(idQuestao: number){
-    const resp = await fetch(`${BASE_URL}/questoes/${idQuestao}`)
+    const resp = await fetch(`${window.location.origin}/api/questoes/${idQuestao}`)
     const json = await resp.json()
     const novaQuestao = QuestaoModel.objetoParaQuestaoModel(json)
     setQuestao(novaQuestao)
